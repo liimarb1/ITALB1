@@ -1,6 +1,7 @@
 ﻿using EFCore.Dominio;
 using EFCore.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,16 @@ namespace EFCore.WebAPI.Controllers
 
             //lambida expression --  .Where(f => f.Nome.Contains(nome))
             //Metodo LinQ Method
-            //usando o ToList ele fecha conexão e pode travar o banco
+            //usando o .ToList() ele fecha conexão e pode travar o banco
             var listFunc = _context.Funcionarios
-                            .Where(f => f.Nome.Contains(nome))
-                            .ToList();
+                            //.Where(f => f.Nome.Contains(nome))
+                            //Functions.Like versão mais verbal
+
+                            .Where(f => EF.Functions.Like(f.Nome, $"%{nome}%"))
+                            .OrderByDescending(f => f.Id)      //OrderBy = ordernar de forma crescente , orderbyDescending = ordenar de forma descrecente do ultimo para o primeiro
+                            .SingleOrDefault();  //SingleOrDefault mostra o 1 da lista 
+                                                 //O LastOrDefault mostra o ultimo da lista   
+                            
 
 
             //"dado funcionario selecione pra mim no contexto o funcionario"
@@ -58,7 +65,7 @@ namespace EFCore.WebAPI.Controllers
 
             var funcionario = _context.Funcionarios
                             .Where(f => f.Id == 5)
-                            .FirstOrDefault();
+                            .FirstOrDefault();  //Fecha a conexão e te retorna o primeiro da lista 
 
             funcionario.Nome = "Sergio";
 
