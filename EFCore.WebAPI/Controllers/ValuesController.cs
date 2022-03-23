@@ -41,7 +41,7 @@ namespace EFCore.WebAPI.Controllers
                             .OrderByDescending(f => f.Id)      //OrderBy = ordernar de forma crescente , orderbyDescending = ordenar de forma descrecente do ultimo para o primeiro
                             .SingleOrDefault();  //SingleOrDefault mostra o 1 da lista 
                                                  //O LastOrDefault mostra o ultimo da lista   
-                            
+
 
 
             //"dado funcionario selecione pra mim no contexto o funcionario"
@@ -131,14 +131,10 @@ namespace EFCore.WebAPI.Controllers
                                 .Single();
             _context.Funcionarios.Remove(funcionario);
             //passa o contexto no caso "funcionario" dentro do "Remove" como parametro
-            
+
             _context.SaveChanges();
 
-           
+
         }
     }
 }
-
-
-
-
