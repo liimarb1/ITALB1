@@ -1,6 +1,8 @@
+using EFCore.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,12 @@ namespace EFCore.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //dentro desse services passar uma configuração lambida expression
+            //vai em appsettings e cria uma ConnectionsStrings cria um novo para a string de conexão e passa a conexão do sql
+            services.AddDbContext<ITContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("RegistroALB"));
+            });
 
             services.AddControllers();
         }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFCore.WebAPI.Models
+namespace EFCore.Dominio
 {
-    public class Equipamento
+    public class Gestor
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string NomeReal { get; set; }
         public Funcionario Funcionario { get; set; }
         public int FuncionarioId { get; set; }
-
+        
     }
 }
